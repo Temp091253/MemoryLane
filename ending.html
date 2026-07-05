@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Last Memory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --gold: #ffd45e;
+            --gold-deep: #f5a623;
+            --white: #fffdf7;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Nunito', sans-serif;
+            background: #1c1240;
+            overflow-x: hidden;
+        }
+
+        .stage {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bg-wrap {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: #1c1240;
+        }
+
+        .bg-photo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            transform-origin: center;
+            filter: saturate(1.05);
+        }
+
+        .bg-veil {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: radial-gradient(120% 100% at 50% 40%,
+                    rgba(20, 10, 45, 0.35) 0%,
+                    rgba(20, 10, 45, 0.62) 55%,
+                    rgba(15, 8, 35, 0.85) 100%);
+        }
+
+        .content-row {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6vh 4vw;
+        }
+
+        /* ===== Panel ===== */
+        .panel-wrap {
+            position: relative;
+            width: min(680px, 94vw);
+            animation: floatIn 1.1s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(28px) scale(.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .panel-inner {
+            position: relative;
+            z-index: 2;
+            padding: 46px 44px 42px;
+            background: radial-gradient(120% 140% at 30% 0%, rgba(90, 55, 150, 0.78), rgba(30, 16, 62, 0.92) 70%);
+            backdrop-filter: blur(8px);
+            border-radius: 34px;
+            border: 1px solid rgba(255, 212, 94, 0.35);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03) inset, 0 30px 70px rgba(0, 0, 0, 0.45), 0 0 40px rgba(255, 196, 80, 0.12);
+            color: var(--white);
+            text-align: center;
+            max-height: 84vh;
+            overflow-y: auto;
+        }
+
+        .panel-inner::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .panel-inner::-webkit-scrollbar-thumb {
+            background: rgba(255, 212, 94, 0.35);
+            border-radius: 10px;
+        }
+
+        .panel-inner::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .boy-pranay {
+            margin-top: 24px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff7d6;
+            letter-spacing: 0.5px;
+            opacity: 0.95;
+        }
+
+        .heart {
+            font-size: 24px;
+            display: block;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 8px rgba(255, 180, 80, .7));
+        }
+
+        h1.title {
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 800;
+            font-size: clamp(22px, 3.2vw, 28px);
+            line-height: 1.3;
+            margin: 0 0 4px;
+            color: var(--white);
+        }
+
+        h1.title .highlight {
+            color: var(--gold);
+            text-shadow: 0 0 18px rgba(255, 196, 80, .55);
+        }
+
+        .divider {
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: .3em;
+            margin: 12px 0 22px;
+            opacity: .8;
+        }
+
+        .letter {
+            text-align: left;
+            font-size: 15.5px;
+            line-height: 1.75;
+            opacity: 0.96;
+        }
+
+        .letter p {
+            margin: 0 0 16px;
+        }
+
+        .letter p.greeting {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 18px;
+        }
+
+        .letter blockquote {
+            margin: 0 0 16px;
+            padding: 10px 18px;
+            border-left: 3px solid var(--gold);
+            font-style: italic;
+            color: #ffe9b8;
+            background: rgba(255, 212, 94, 0.06);
+            border-radius: 0 10px 10px 0;
+        }
+
+        .letter .emphasis {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .letter .signoff {
+            margin-top: 26px;
+            text-align: center;
+            font-size: 20px;
+            letter-spacing: .08em;
+        }
+
+        .sparkle {
+            position: absolute;
+            z-index: 4;
+            color: var(--gold);
+            opacity: .9;
+            animation: twinkle 2.6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .sparkle.s1 {
+            top: -3%;
+            right: 10%;
+            font-size: 22px;
+            animation-delay: 0s;
+        }
+
+        .sparkle.s2 {
+            top: 40%;
+            left: -3%;
+            font-size: 16px;
+            animation-delay: .8s;
+        }
+
+        .sparkle.s3 {
+            bottom: 4%;
+            right: -2%;
+            font-size: 18px;
+            animation-delay: 1.4s;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: .25;
+                transform: scale(.85);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        .brandmark {
+            position: fixed;
+            left: 50%;
+            bottom: 3vh;
+            transform: translateX(-50%);
+            z-index: 2;
+            color: var(--white);
+            font-family: 'Baloo 2', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: .04em;
+            opacity: 0;
+            text-align: center;
+            animation: fadeUp 1s ease .6s forwards;
+        }
+
+        .brandmark span {
+            color: var(--gold);
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 10px);
+            }
+
+            to {
+                opacity: .85;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .panel-inner {
+                padding: 32px 22px 30px;
+                max-height: 80vh;
+            }
+
+            .letter {
+                font-size: 14.5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-wrap">
+        <img class="bg-photo" src="Data/empty.png" alt="Headquarters, empty memory shelf">
+    </div>
+    <div class="bg-veil"></div>
+
+    <div class="stage">
+        <div class="content-row">
+            <div class="panel-wrap">
+                <span class="sparkle s1">✨</span>
+                <span class="sparkle s2">✦</span>
+                <span class="sparkle s3">✨</span>
+
+                <div class="panel-inner">
+                    <span class="heart">💛</span>
+                    <h1 class="title"> <span class="highlight">One more Orb to fill</span></h1>
+                    <div class="divider">✦ ✦ ✦</div>
+
+                    <div class="letter">
+                        <p class="greeting">Hi Snorlax,</p>
+
+                        <p>I don't know when you're going to read this... mainly because I don't even know when I am
+                            going
+                            share this with you. 😄</p>
+
+                        <p>Remember what Uncle said?</p>
+
+                        <blockquote>"Prepare to discover a love that knows no bounds."</blockquote>
+
+                        <p>I don't know why, but that line has stayed with me ever since.</p>
+
+                        <p>I've always known you as <span class="emphasis">Romantic Raisa</span>, and in these last
+                            2&ndash;2&frac12; years, I've been lucky enough to know at least a little bit of the person
+                            behind that. Maybe... now you're about to discover a whole new kind of love.</p>
+
+                        <p>Don't worry, this isn't a lecture or some gyaan session. 😄</p>
+
+                        <p>I just wanted to say something I've always believed.</p>
+
+                        <p>You have this amazing ability to light up a room without even trying. You carry so much
+                            warmth and positivity that people naturally feel comfortable around you. I genuinely think
+                            everyone lucky enough to have you in their life is grateful for it... I know I am.</p>
+
+                        <p>Now you're stepping into a brand-new adventure.</p>
+
+                        <p>One that will probably be the most beautiful, the most chaotic, the most exhausting, and
+                            definitely the most rewarding one yet.</p>
+
+                        <!-- <p>But there's one thing I hope never changes.</p> -->
+
+                        <p><span class="emphasis">Stay the same Raisa whom I fell in love with.</span></p>
+
+                        <p>Keep that smile.<br>
+                            Keep that little bit of "Geet" in you.<br>
+                            Keep annoying people with your endless optimism. 😂</p>
+
+                        <p>Because that's the version of you that has made so many lives brighter.</p>
+
+                        <p>Your little one is incredibly lucky to have you as their mum.</p>
+
+                        <p>And... I know I could keep writing forever...<br>
+                            But maybe I'll save a few words for the next adventure.</p>
+
+                        <p>Don't lose yourself in the process.<br>
+                            (You know exactly what I mean. 💛)</p>
+
+                        <p>So...<br>
+                            Best of luck with everything that's coming next.<br>
+                            And all the Core Memories that are still waiting to be made.</p>
+
+                        <p>Oh... and one last thing.<br>
+                            I still have absolutely no idea when you'll end up reading this.<br>
+                            Maybe months from now.</p>
+
+                        <p>But whenever you do...<br>
+                            I hope it makes you smile.<br>
+                            Just like your smile has always made everyone else smile.</p>
+
+                        <p class="boy-pranay">P-Boy Signing Off 💛✨</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
